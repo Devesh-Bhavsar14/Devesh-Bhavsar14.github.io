@@ -35,6 +35,7 @@ nav ul{
     list-style:none;
     display:flex;
     gap:30px;
+    align-items:center;
 }
 
 nav a{
@@ -45,6 +46,24 @@ nav a{
 
 nav a:hover{
     color:#b68d40;
+}
+
+/* SEARCH BAR */
+.search-container{
+    margin-left:20px;
+}
+
+#searchInput{
+    padding:8px 15px;
+    border-radius:20px;
+    border:1px solid #ccc;
+    outline:none;
+    font-size:14px;
+    transition:0.3s;
+}
+
+#searchInput:focus{
+    border-color:#b68d40;
 }
 
 /* HEADER */
@@ -168,11 +187,16 @@ footer{
 <!-- NAVIGATION -->
 <nav>
 <div><strong>BLACKWELL CO.</strong></div>
+
 <ul>
 <li><a href="#">Home</a></li>
 <li><a href="#">Shop</a></li>
 <li><a href="#">About</a></li>
 <li><a href="#">Contact</a></li>
+
+<li class="search-container">
+<input type="text" id="searchInput" placeholder="Search products...">
+</li>
 </ul>
 </nav>
 
@@ -232,6 +256,24 @@ Our accessories are crafted with precision and designed to complement the modern
 © 2026 Blackwell Co. All Rights Reserved.
 </footer>
 
+<!-- JAVASCRIPT SEARCH FUNCTION -->
+<script>
+const searchInput = document.getElementById("searchInput");
+const products = document.querySelectorAll(".product-card");
+
+searchInput.addEventListener("keyup", function() {
+    let filter = searchInput.value.toLowerCase();
+
+    products.forEach(function(product) {
+        let text = product.textContent.toLowerCase();
+        if(text.includes(filter)) {
+            product.style.display = "block";
+        } else {
+            product.style.display = "none";
+        }
+    });
+});
+</script>
+
 </body>
 </html>
-
