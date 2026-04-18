@@ -1,3 +1,19 @@
+<?php
+/**
+ * Checkout Page
+ * Requires user to be logged in
+ */
+require_once 'config.php';
+
+if (!isLoggedIn()) {
+    redirect('login.php');
+}
+
+// Fetch user data to pre-fill the form
+$stmt = $pdo->prepare("SELECT full_name, email FROM users WHERE id = ?");
+$stmt->execute([$_SESSION['user_id']]);
+$user = $stmt->fetch();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +22,7 @@
     <title>Checkout | Blackwell Co.</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
 </head>
 <body>
 
@@ -14,6 +31,8 @@
     <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="shop.html">Shop</a></li>
+        <li><a href="dashboard.php">Dashboard</a></li>
+        <li><a href="logout.php" class="logout-link">Logout</a></li>
     </ul>
 </nav>
 
@@ -29,13 +48,13 @@
         
         <div class="form-group">
             <label>Full Name</label>
-            <input type="text" required placeholder="Jon Doe">
+            <input type="text" required value="<?php echo htmlspecialchars($user['full_name'] ?? ''); ?>" placeholder="Jon Doe">
         </div>
         
         <div class="checkout-grid">
             <div class="form-group">
                 <label>Email</label>
-                <input type="email" required placeholder="jon@example.com">
+                <input type="email" required value="<?php echo htmlspecialchars($user['email'] ?? ''); ?>" placeholder="jon@example.com">
             </div>
             <div class="form-group">
                 <label>Phone Number</label>

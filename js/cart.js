@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <span>Total:</span>
                         <span id="cart-total-price">₹0</span>
                     </div>
-                    <a href="checkout.html" class="checkout-btn">Proceed to Checkout</a>
+                    <a href="checkout.php" class="checkout-btn">Proceed to Checkout</a>
                 </div>
             </div>
         `;
